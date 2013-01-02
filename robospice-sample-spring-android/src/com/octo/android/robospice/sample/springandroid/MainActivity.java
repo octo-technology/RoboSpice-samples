@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -66,6 +67,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick( View view ) {
                 performRequest( searchQuery.getText().toString() );
+                // clear focus
+                LinearLayout linearLayout = (LinearLayout) findViewById( R.id.search_layout );
+                linearLayout.requestFocus();
                 // hide keyboard
                 InputMethodManager imm = (InputMethodManager) getSystemService( Context.INPUT_METHOD_SERVICE );
                 imm.hideSoftInputFromWindow( searchQuery.getWindowToken(), 0 );
