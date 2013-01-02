@@ -11,7 +11,7 @@ public class Tweet {
         return text;
     }
 
-    public void setText(String text) {
+    public void setText( String text ) {
         this.text = text;
     }
 }

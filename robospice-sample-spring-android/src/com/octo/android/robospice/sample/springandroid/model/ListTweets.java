@@ -7,14 +7,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ListTweets {
 
+    private List< Tweet > results;
 
-    private List<Tweet> results;
-
-    public List<Tweet> getResults() {
+    public List< Tweet > getResults() {
         return results;
     }
 
-    public void setResults(List<Tweet> results) {
+    public void setResults( List< Tweet > results ) {
         this.results = results;
     }
 }
