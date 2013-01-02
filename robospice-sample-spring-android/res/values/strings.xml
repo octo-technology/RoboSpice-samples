@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello RoboSpice!</string>
-    <string name="app_name">RoboSpice Spring Android sample</string>
-    <string name="textview_text">Current temperature :</string>
+    <string name="app_name">RoboSpice Spring Android Sample</string>
+    <string name="search_hint_text">Search something…</string>
+    <string name="search_button_text">Search</string>
 </resources>
