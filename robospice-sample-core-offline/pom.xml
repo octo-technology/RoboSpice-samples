@@ -6,8 +6,8 @@
 
 	<groupId>com.octo.android.robospice</groupId>
 	<artifactId>robospice-sample-core-offline</artifactId>
-	<packaging>apk</packaging>
 	<version>1.0.1-SNAPSHOT</version>
+	<packaging>apk</packaging>
 	<name>Robospice - Sample Core - offline</name>
 
 	<properties>
@@ -37,6 +37,7 @@
 		<sourceDirectory>src/</sourceDirectory>
 		<plugins>
 			<plugin>
+				<extensions>true</extensions>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<version>${android-maven-plugin.version}</version>
@@ -50,7 +51,6 @@
 					</sdk>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>
-				<extensions>true</extensions>
 			</plugin>
 
 			<plugin>
@@ -65,6 +65,27 @@
 	</build>
 
 	<profiles>
+		<profile>
+			<id>lint</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.lewisd</groupId>
+						<artifactId>lint-maven-plugin</artifactId>
+						<version>0.0.6</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>check</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
 		<profile>
 			<id>ant</id>
 			<build>
