@@ -81,6 +81,7 @@
 	</ciManagement>
 
 	<modules>
+		<module>robospice-sample-basic</module>
 		<module>robospice-sample-core</module>
 		<module>robospice-sample-core-offline</module>
 		<module>robospice-sample-spring-android</module>

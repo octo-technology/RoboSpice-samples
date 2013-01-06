@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RoboSpice Sample Basic</string>
+    <string name="reverse_hint_text">Insert word…</string>
+    <string name="reverse_button_text">Reverse</string>
+    <string name="result_text">Result: %s</string>
+</resources>
