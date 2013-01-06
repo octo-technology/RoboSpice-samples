@@ -1,21 +1,28 @@
 package com.octo.android.robospice.sample.springandroid;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
-import android.widget.*;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.octo.android.robospice.JacksonSpringAndroidSpiceService;
 import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.sample.springandroid.model.ListTweets;
-import com.octo.android.robospice.sample.springandroid.model.Tweet;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-
-import java.util.List;
+import com.octo.android.robospice.sample.springandroid.model.ListTweets;
+import com.octo.android.robospice.sample.springandroid.model.Tweet;
 
 public class MainActivity extends Activity {
 
@@ -60,6 +67,12 @@ public class MainActivity extends Activity {
             @Override
             public void onClick( View view ) {
                 performRequest( searchQuery.getText().toString() );
+                // clear focus
+                LinearLayout linearLayout = (LinearLayout) findViewById( R.id.search_layout );
+                linearLayout.requestFocus();
+                // hide keyboard
+                InputMethodManager imm = (InputMethodManager) getSystemService( Context.INPUT_METHOD_SERVICE );
+                imm.hideSoftInputFromWindow( searchQuery.getWindowToken(), 0 );
             }
         } );
     }
@@ -74,8 +87,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onSaveInstanceState( Bundle outState ) {
-        if ( !TextUtils.isEmpty( lastRequestCacheKey ) )
+        if ( !TextUtils.isEmpty( lastRequestCacheKey ) ) {
             outState.putString( KEY_LAST_REQUEST_CACHE_KEY, lastRequestCacheKey );
+        }
         super.onSaveInstanceState( outState );
     }
 
@@ -99,8 +113,9 @@ public class MainActivity extends Activity {
         public void onRequestSuccess( ListTweets listTweets ) {
 
             // listTweets could be null just if contentManager.getFromCache(...) doesn't return anything.
-            if ( listTweets == null )
+            if ( listTweets == null ) {
                 return;
+            }
 
             tweetsAdapter.clear();
 

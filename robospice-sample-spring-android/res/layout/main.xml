@@ -5,8 +5,11 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:orientation="horizontal"
         android:padding="2dip" >
 
@@ -15,7 +18,9 @@
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/search_hint_text" />
+            android:hint="@string/search_hint_text"
+            android:inputType="textNoSuggestions"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/search_button"
