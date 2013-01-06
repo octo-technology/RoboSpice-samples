@@ -28,6 +28,10 @@ public class ReverseStringRequest extends SpiceRequest<String> {
 
         String url = uriBuilder.build().toString();
 
+        if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+            System.setProperty("http.keepAlive", "false");
+        }
+        
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(url)
             .openConnection();
         String result = IOUtils.toString(urlConnection.getInputStream());
