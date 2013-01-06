@@ -6,6 +6,7 @@ import java.net.URL;
 import org.apache.commons.io.IOUtils;
 
 import android.net.Uri;
+import android.os.Build;
 
 import com.octo.android.robospice.request.SpiceRequest;
 
@@ -28,7 +29,7 @@ public class ReverseStringRequest extends SpiceRequest<String> {
 
         String url = uriBuilder.build().toString();
 
-        if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             System.setProperty("http.keepAlive", "false");
         }
         
