@@ -16,7 +16,7 @@ import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.ormlite.InDatabaseObjectPersisterFactory;
 import com.octo.android.robospice.persistence.ormlite.RoboSpiceDatabaseHelper;
-import com.octo.android.robospice.sample.ormlite.model.Curren_weather;
+import com.octo.android.robospice.sample.ormlite.model.CurrenWeather;
 import com.octo.android.robospice.sample.ormlite.model.Day;
 import com.octo.android.robospice.sample.ormlite.model.Forecast;
 import com.octo.android.robospice.sample.ormlite.model.Night;
@@ -40,7 +40,7 @@ public class SampleSpiceService extends SpringAndroidSpiceService {
 
         // add persisted classes to class collection
         classCollection.add( Weather.class );
-        classCollection.add( Curren_weather.class );
+        classCollection.add( CurrenWeather.class );
         classCollection.add( Day.class );
         classCollection.add( Forecast.class );
         classCollection.add( Night.class );

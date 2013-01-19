@@ -7,19 +7,19 @@ import com.google.api.client.util.Key;
 public class Weather {
 
     @Key
-    private List< Curren_weather > curren_weather;
+    private List< CurrenWeather > curren_weather;
     @Key
     private List< Forecast > forecast;
 
     public Weather() {
     }
 
-    public List< Curren_weather > getCurren_weather() {
+    public List< CurrenWeather > getCurren_weather() {
         return this.curren_weather;
     }
 
-    public void setCurren_weather( List< Curren_weather > curren_weather ) {
-        this.curren_weather = curren_weather;
+    public void setCurren_weather( List< CurrenWeather > currenWeather ) {
+        this.curren_weather = currenWeather;
     }
 
     public List< Forecast > getForecast() {
