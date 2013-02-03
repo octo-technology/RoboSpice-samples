@@ -24,4 +24,4 @@ your project is now ant-ready, the libs folder contains all needed dependencies 
 
 This method works for every sample project. Once you got all the needed jar files, you can move them to your own projects.
 
-**Note** : you will need to define the ANDROID_HOME environment variable to point to you android SDK home folder for maven to work.
+**Note** : you will need to define the `ANDROID_HOME` environment variable to point to you android SDK home folder for maven to work.
