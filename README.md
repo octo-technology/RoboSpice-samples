@@ -1,10 +1,11 @@
-RoboSpice-samples
-=================
+# RoboSpice-samples
+
 
 All samples of the RoboSpice library.
 
-Convert samples to Ant projects
--------------------------------
+
+## Convert samples to Ant projects
+
 
 ```bash
 #go to the sample of your choice.
