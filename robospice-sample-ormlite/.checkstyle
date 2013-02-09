@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
+  <local-check-config name="maven-checkstyle-plugin" location="jar:file:/Users/stephanenicolas/.m2/repository/org/apache/maven/plugins/maven-checkstyle-plugin/2.9.1/maven-checkstyle-plugin-2.9.1.jar!/config/sun_checks.xml" type="remote" description="maven-checkstyle-plugin configuration">
+    <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
+    <property name="checkstyle.header.file" value="/Users/stephanenicolas/git/robospice/robospice-core-parent/robospice/target/checkstyle-header.txt"/>
+  </local-check-config>
+  <local-check-config name="robospice_checks.xml" location="/Users/stephanenicolas/git/robospice/robospice_checks.xml" type="external" description="">
+    <additional-data name="protect-config-file" value="false"/>
+  </local-check-config>
+  <fileset name="java source files" enabled="true" check-config-name="robospice_checks.xml" local="true">
+    <file-match-pattern match-pattern=".java$" include-pattern="true"/>
+  </fileset>
+</fileset-config>
