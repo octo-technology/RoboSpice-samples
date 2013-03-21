@@ -52,11 +52,18 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements Abs
             int firstVisiblePosition = absListView.getFirstVisiblePosition();
             int lastVisiblePosition = absListView.getLastVisiblePosition();
             int numVisiblePositions = lastVisiblePosition - firstVisiblePosition + 1;
+
             for (int i = 0; i < numVisiblePositions; i++) {
+
                 int adapterItemPosition = firstVisiblePosition + i;
                 View visibleItem = absListView.getChildAt(i);
                 ViewMetaData viewMetaData = (ViewMetaData) visibleItem.getTag();
-                executeImageRequest(adapterItemPosition, viewMetaData);
+
+                boolean imageNotLoaded = viewMetaData.imageState == ImageState.EMPTY;
+                boolean imageNotLoadingFromNetwork = viewMetaData.imageState == ImageState.LOADING_CACHE_ONLY;
+                if (imageNotLoaded || imageNotLoadingFromNetwork) {
+                    executeImageRequest(adapterItemPosition, viewMetaData, false);
+                }
             }
         }
         lastScrollState = scrollState;
@@ -86,41 +93,67 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements Abs
 
         ViewMetaData viewMetaData = (ViewMetaData) convertView.getTag();
 
+        //TODO: load a proper placeholder image here
+
         viewMetaData.image.setImageDrawable(new ColorDrawable(Color.parseColor("#000000")));
+        viewMetaData.imageState = ImageState.EMPTY;
 
         if (viewMetaData.pendingRequest != null) {
             viewMetaData.pendingRequest.cancel();
         }
 
-        if (lastScrollState != SCROLL_STATE_FLING) {
-            executeImageRequest(position, viewMetaData);
+        boolean isFlinging = lastScrollState == SCROLL_STATE_FLING;
+        if (isFlinging) {
+            executeImageRequest(position, viewMetaData, true);
+        } else {
+            executeImageRequest(position, viewMetaData, false);
         }
 
         return convertView;
     }
 
-    private void executeImageRequest(int position, ViewMetaData viewMetaData) {
+    private void executeImageRequest(int position, ViewMetaData viewMetaData, boolean cacheOnly) {
         FlickrPhoto photoSource = getItem(position);
         viewMetaData.pendingRequest = imageRequestFactory.create(photoSource);
-        BitmapRequestListener requestListener = new BitmapRequestListener(viewMetaData.image);
-        spiceManager.execute(viewMetaData.pendingRequest,  requestListener);
+        BitmapRequestListener requestListener = new BitmapRequestListener(viewMetaData);
+
+        if (cacheOnly) {
+            viewMetaData.imageState = ImageState.LOADING_CACHE_ONLY;
+            spiceManager.getFromCache(
+                    viewMetaData.pendingRequest.getResultType(),
+                    (String) viewMetaData.pendingRequest.getRequestCacheKey(),
+                    viewMetaData.pendingRequest.getCacheDuration(),
+                    requestListener);
+        } else {
+            viewMetaData.imageState = ImageState.LOADING_WITH_NETWORK;
+            spiceManager.execute(viewMetaData.pendingRequest,  requestListener);
+        }
     }
 
     private class ViewMetaData {
 
         public ImageView image;
         public CachedSpiceRequest<Bitmap> pendingRequest;
+        public ImageState imageState;
+
 
         public ViewMetaData(View itemView) {
             image = (ImageView)itemView.findViewById(imageRes);
         }
     }
 
+    private enum ImageState {
+        EMPTY,
+        LOADING_WITH_NETWORK,
+        LOADING_CACHE_ONLY,
+        LOADING_COMPLETE
+    }
+
     private class BitmapRequestListener implements RequestListener<Bitmap> {
 
-        private final ImageView target;
+        private final ViewMetaData target;
 
-        public BitmapRequestListener(ImageView target) {
+        public BitmapRequestListener(ViewMetaData target) {
             this.target = target;
         }
 
@@ -132,7 +165,16 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements Abs
         @Override
         public void onRequestSuccess(Bitmap bitmap) {
 
-            target.setImageBitmap(bitmap);
+            if (bitmap == null) {
+                target.imageState = ImageState.EMPTY;
+            }
+            else {
+                target.imageState = ImageState.LOADING_COMPLETE;
+                  target.image.setImageBitmap(bitmap);
+                target.image.setImageBitmap(bitmap);
+            }
+
+            target.pendingRequest = null;
         }
     }
 }
