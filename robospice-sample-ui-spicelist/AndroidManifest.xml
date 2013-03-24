@@ -26,10 +26,10 @@
 
         <!-- ROBOSPICE SERVICES -->
         <service
-            android:name="com.octo.android.robospice.sample.ui.spicelist.network.ListTweetSpiceService"
+            android:name="com.octo.android.robospice.JacksonSpringAndroidSpiceService"
             android:exported="false" />
         <service
-            android:name="com.octo.android.robospice.spicelist.BigBinarySpiceService"
+            android:name="com.octo.android.robospice.spicelist.BitmapSpiceService"
             android:exported="false" />
     </application>
 

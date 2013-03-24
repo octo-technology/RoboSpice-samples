@@ -13,6 +13,9 @@
 */gen/
 */out/
 
+# libraries for the Eclipse/Ant build system
+*/libs/
+
 # Local configuration file (sdk path, etc)
 local.properties
 release.properties
