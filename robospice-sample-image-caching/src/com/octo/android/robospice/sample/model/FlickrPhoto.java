@@ -24,13 +24,13 @@ public class FlickrPhoto {
     @Attribute
     private String title;
 
-    @Attribute(name="ispublic")
+    @Attribute(name = "ispublic")
     private boolean isPublic;
 
-    @Attribute(name="isfriend")
+    @Attribute(name = "isfriend")
     private boolean isFriend;
 
-    @Attribute(name="isfamily")
+    @Attribute(name = "isfamily")
     private boolean isFamily;
 
     public String getId() {

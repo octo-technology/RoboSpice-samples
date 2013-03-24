@@ -7,10 +7,10 @@ import org.simpleframework.xml.Root;
 @Root
 public class FlickrResponse {
 
-    @Attribute(name="stat")
+    @Attribute(name = "stat")
     private String status;
 
-    @Element(name="err", required=false)
+    @Element(name = "err", required = false)
     private FlickrException exception;
 
     public boolean success() {

@@ -61,8 +61,10 @@ public class FlickrImageRequestFactory {
             Ln.e(e);
         }
 
-        BitmapRequest request = new BitmapRequest(photoUrl, targetWidth, targetHeight, cacheFile);
-        return new CachedSpiceRequest<Bitmap>(request, filename, DurationInMillis.ONE_MINUTE * 10);
+        BitmapRequest request = new BitmapRequest(photoUrl, targetWidth,
+            targetHeight, cacheFile);
+        return new CachedSpiceRequest<Bitmap>(request, filename,
+            DurationInMillis.ONE_MINUTE * 10);
     }
 
     public int getTargetHeight() {

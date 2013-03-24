@@ -9,21 +9,20 @@ import java.util.List;
 @Root
 public class FlickrPhotoList {
 
-    @ElementList(inline=true, entry = "photo")
+    @ElementList(inline = true, entry = "photo")
     private List<FlickrPhoto> photos;
 
-    @Attribute(name="page")
+    @Attribute(name = "page")
     private int currentPage;
 
-    @Attribute(name="pages")
+    @Attribute(name = "pages")
     private int numPages;
 
-    @Attribute(name="perpage")
+    @Attribute(name = "perpage")
     private int photosPerPage;
 
-    @Attribute(name="total")
+    @Attribute(name = "total")
     private int totalPages;
-
 
     public List<FlickrPhoto> getPhotos() {
         return photos;
