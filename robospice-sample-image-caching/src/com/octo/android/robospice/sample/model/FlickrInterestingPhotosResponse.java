@@ -6,7 +6,7 @@ import org.simpleframework.xml.Root;
 @Root
 public class FlickrInterestingPhotosResponse extends FlickrResponse {
 
-    @Element(name="photos", required = false)
+    @Element(name = "photos", required = false)
     private FlickrPhotoList photoList;
 
     public FlickrPhotoList getPhotoList() {

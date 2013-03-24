@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Robospice Sample Image Caching</string>
+    <string name="grid_view_item_content_description">Flickr image</string>
+</resources>

@@ -20,7 +20,6 @@ import com.octo.android.robospice.sample.service.FlickrSpiceService;
 
 import java.util.ArrayList;
 
-
 public class SampleActivity extends Activity {
 
     private static final String FLICKR_API_KEY = "cd3660161605453352f8839e32d2e3fc";
@@ -29,7 +28,6 @@ public class SampleActivity extends Activity {
     private static final int MIN_COLUMNS = 2;
     private static final int MAX_COLUMNS = 4;
 
-    private GridView imageGrid;
     private FlickrPhotoAdapter photoAdapter;
 
     private SpiceManager contentManager = new SpiceManager(
@@ -48,14 +46,16 @@ public class SampleActivity extends Activity {
 
     private void bindViews() {
 
-        imageGrid = (GridView) findViewById(R.id.image_grid);
+        GridView imageGrid = (GridView) findViewById(R.id.image_grid);
 
-        int gridSize = sizeColumnsToFit(imageGrid, PHOTO_WIDTH, MIN_COLUMNS, MAX_COLUMNS);
+        int gridSize = sizeColumnsToFit(imageGrid, PHOTO_WIDTH, MIN_COLUMNS,
+            MAX_COLUMNS);
 
-        FlickrImageRequestFactory imageRequestFactory = new FlickrImageRequestFactory(this);
-        imageRequestFactory
-                .setPhotoFormat(FlickrImageRequestFactory.LARGE_THUMB_SQUARE)
-                .setSampleSize(gridSize, gridSize);
+        FlickrImageRequestFactory imageRequestFactory = new FlickrImageRequestFactory(
+            this);
+        imageRequestFactory.setPhotoFormat(
+                FlickrImageRequestFactory.LARGE_THUMB_SQUARE).setSampleSize(
+                gridSize, gridSize);
 
         photoAdapter = new FlickrPhotoAdapter(this, R.layout.grid_view_item,
             R.id.image, new ArrayList<FlickrPhoto>(), imageRequestFactory);
@@ -63,9 +63,9 @@ public class SampleActivity extends Activity {
         imageGrid.setOnScrollListener(photoAdapter);
     }
 
-
     @TargetApi(13)
-    private int sizeColumnsToFit(GridView grid, int minColumnWidth, int minColumns, int maxColumns) {
+    private int sizeColumnsToFit(GridView grid, int minColumnWidth,
+        int minColumns, int maxColumns) {
 
         Display display = getWindowManager().getDefaultDisplay();
 
@@ -94,7 +94,8 @@ public class SampleActivity extends Activity {
     protected void onStart() {
         contentManager.start(this);
 
-        FlickrInterestingPhotosRequest request = new FlickrInterestingPhotosRequest(FLICKR_API_KEY);
+        FlickrInterestingPhotosRequest request = new FlickrInterestingPhotosRequest(
+            FLICKR_API_KEY);
         PhotoListRequestListener requestListener = new PhotoListRequestListener();
 
         contentManager.execute(request, requestListener);

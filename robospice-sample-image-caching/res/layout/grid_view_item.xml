@@ -7,6 +7,7 @@
            android:background="#AAAAAA"
            android:scaleType="fitXY"
            android:layout_width="0dp"
-           android:layout_height="0dp">
+           android:layout_height="0dp"
+           android:contentDescription="@string/grid_view_item_content_description">
 
 </ImageView>
