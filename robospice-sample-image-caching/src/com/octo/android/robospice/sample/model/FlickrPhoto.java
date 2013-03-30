@@ -3,6 +3,10 @@ package com.octo.android.robospice.sample.model;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
+/**
+ * Represents Flickr picture.
+ * @author David Stemmer
+ */
 @Root
 public class FlickrPhoto {
 

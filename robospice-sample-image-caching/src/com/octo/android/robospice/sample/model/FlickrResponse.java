@@ -4,6 +4,10 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+/**
+ * A Flickr Response.
+ * @author David Stemmer
+ */
 @Root
 public class FlickrResponse {
 

@@ -1,17 +1,22 @@
 package com.octo.android.robospice.sample.request;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.request.CachedSpiceRequest;
-import com.octo.android.robospice.request.simple.BitmapRequest;
-import com.octo.android.robospice.sample.model.FlickrPhoto;
-import roboguice.util.temp.Ln;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import roboguice.util.temp.Ln;
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.octo.android.robospice.persistence.DurationInMillis;
+import com.octo.android.robospice.request.CachedSpiceRequest;
+import com.octo.android.robospice.request.simple.BitmapRequest;
+import com.octo.android.robospice.sample.model.FlickrPhoto;
+
+/**
+ * A customizable RoboSpice requests factory to download images from Flickr.
+ * @author David Stemmer
+ */
 public class FlickrImageRequestFactory {
 
     private final Context context;
@@ -50,8 +55,7 @@ public class FlickrImageRequestFactory {
 
         String photoUrlFormat = "http://farm%s.staticflickr.com/%s/%s_%s_%s.jpg";
         String photoUrl = String.format(photoUrlFormat, photoSource.getFarm(),
-            photoSource.getServer(), photoSource.getId(),
-            photoSource.getSecret(), photoSizeSuffix);
+            photoSource.getServer(), photoSource.getId(), photoSource.getSecret(), photoSizeSuffix);
         File cacheFile = null;
         String filename = null;
         try {
@@ -61,10 +65,8 @@ public class FlickrImageRequestFactory {
             Ln.e(e);
         }
 
-        BitmapRequest request = new BitmapRequest(photoUrl, targetWidth,
-            targetHeight, cacheFile);
-        return new CachedSpiceRequest<Bitmap>(request, filename,
-            DurationInMillis.ONE_MINUTE * 10);
+        BitmapRequest request = new BitmapRequest(photoUrl, targetWidth, targetHeight, cacheFile);
+        return new CachedSpiceRequest<Bitmap>(request, filename, DurationInMillis.ONE_MINUTE * 10);
     }
 
     public int getTargetHeight() {

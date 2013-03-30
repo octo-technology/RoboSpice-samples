@@ -1,14 +1,18 @@
 package com.octo.android.robospice.sample.service;
 
 import roboguice.util.temp.Ln;
-import android.util.Log;
 import android.app.Application;
+import android.util.Log;
 
 import com.octo.android.robospice.XmlSpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileBitmapObjectPersister;
 import com.octo.android.robospice.persistence.memory.LruCacheBitmapObjectPersister;
 
+/**
+ * A Flick image service that uses a lru cache persister back by a bitmap object persister.
+ * @author David Stemmer
+ */
 public class FlickrSpiceService extends XmlSpringAndroidSpiceService {
 
     @Override

@@ -1,11 +1,15 @@
 package com.octo.android.robospice.sample.model;
 
+import java.util.List;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-import java.util.List;
-
+/**
+ * Represents the result of research for interesting photos.
+ * @author David Stemmer
+ */
 @Root
 public class FlickrPhotoList {
 

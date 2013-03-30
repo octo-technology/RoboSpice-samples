@@ -1,5 +1,7 @@
 package com.octo.android.robospice.sample.adapter;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.CachedSpiceRequest;
@@ -18,8 +21,11 @@ import com.octo.android.robospice.sample.model.FlickrPhoto;
 import com.octo.android.robospice.sample.request.FlickrImageRequestFactory;
 import com.octo.android.robospice.sample.service.FlickrSpiceService;
 
-import java.util.ArrayList;
-
+/**
+ * An adapter that can be used inside a list or grid to display pictures obtained from Flickr web
+ * service.
+ * @author David Stemmer
+ */
 public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
     AbsListView.OnScrollListener {
 
@@ -46,12 +52,10 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
 
-        if (scrollState != SCROLL_STATE_FLING
-            && lastScrollState == SCROLL_STATE_FLING) {
+        if (scrollState != SCROLL_STATE_FLING && lastScrollState == SCROLL_STATE_FLING) {
             int firstVisiblePosition = absListView.getFirstVisiblePosition();
             int lastVisiblePosition = absListView.getLastVisiblePosition();
-            int numVisiblePositions = lastVisiblePosition
-                - firstVisiblePosition + 1;
+            int numVisiblePositions = lastVisiblePosition - firstVisiblePosition + 1;
 
             for (int i = 0; i < numVisiblePositions; i++) {
 
@@ -62,8 +66,7 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
                 boolean imageNotLoaded = viewMetaData.imageState == ImageState.EMPTY;
                 boolean imageNotLoadingFromNetwork = viewMetaData.imageState == ImageState.LOADING_CACHE_ONLY;
                 if (imageNotLoaded || imageNotLoadingFromNetwork) {
-                    executeImageRequest(adapterItemPosition, viewMetaData,
-                        false);
+                    executeImageRequest(adapterItemPosition, viewMetaData, false);
                 }
             }
         }
@@ -72,8 +75,8 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
     }
 
     @Override
-    public void onScroll(AbsListView view, int firstVisibleItem,
-        int visibleItemCount, int totalItemCount) {
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+        int totalItemCount) {
     }
 
     @Override
@@ -85,8 +88,7 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
             convertView = inflater.inflate(layoutRes, parent, false);
 
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(
-                imageRequestFactory.getTargetWidth(),
-                imageRequestFactory.getTargetHeight());
+                imageRequestFactory.getTargetWidth(), imageRequestFactory.getTargetHeight());
             convertView.setLayoutParams(params);
 
             ViewMetaData viewMetaData = new ViewMetaData(convertView);
@@ -97,8 +99,7 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
 
         // TODO: load a proper placeholder image here
 
-        viewMetaData.image.setImageDrawable(new ColorDrawable(Color
-            .parseColor("#000000")));
+        viewMetaData.image.setImageDrawable(new ColorDrawable(Color.parseColor("#000000")));
         viewMetaData.imageState = ImageState.EMPTY;
 
         if (viewMetaData.pendingRequest != null) {
@@ -115,20 +116,16 @@ public class FlickrPhotoAdapter extends ArrayAdapter<FlickrPhoto> implements
         return convertView;
     }
 
-    private void executeImageRequest(int position, ViewMetaData viewMetaData,
-        boolean cacheOnly) {
+    private void executeImageRequest(int position, ViewMetaData viewMetaData, boolean cacheOnly) {
         FlickrPhoto photoSource = getItem(position);
         viewMetaData.pendingRequest = imageRequestFactory.create(photoSource);
-        BitmapRequestListener requestListener = new BitmapRequestListener(
-            viewMetaData);
+        BitmapRequestListener requestListener = new BitmapRequestListener(viewMetaData);
 
         if (cacheOnly) {
             viewMetaData.imageState = ImageState.LOADING_CACHE_ONLY;
-            spiceManager
-                .getFromCache(viewMetaData.pendingRequest.getResultType(),
-                        (String) viewMetaData.pendingRequest.getRequestCacheKey(),
-                        viewMetaData.pendingRequest.getCacheDuration(),
-                        requestListener);
+            spiceManager.getFromCache(viewMetaData.pendingRequest.getResultType(),
+                viewMetaData.pendingRequest.getRequestCacheKey(),
+                viewMetaData.pendingRequest.getCacheDuration(), requestListener);
         } else {
             viewMetaData.imageState = ImageState.LOADING_WITH_NETWORK;
             spiceManager.execute(viewMetaData.pendingRequest, requestListener);
