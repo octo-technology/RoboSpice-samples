@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FlickrGridViewItem">
+        <item name="android:padding">1dp</item>
+        <item name="android:cropToPadding">true</item>
+        <item name="android:background">@color/gray</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+</resources>
