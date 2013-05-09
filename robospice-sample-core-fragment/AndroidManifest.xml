@@ -26,7 +26,7 @@
         </activity>
 
         <service
-            android:name="com.octo.android.robospice.UncachedSpiceService"
+            android:name="com.octo.android.robospice.sample.basic.fragment.SampleInMemorySpiceService"
             android:exported="false" />
     </application>
 

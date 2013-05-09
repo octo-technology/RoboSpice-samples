@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.UncachedSpiceService;
+import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
@@ -24,7 +25,7 @@ public class MainFragment extends Fragment {
      * With {@link UncachedSpiceService} there is no cache management. Remember to declare it in
      * AndroidManifest.xml
      */
-    private SpiceManager spiceManager = new SpiceManager(UncachedSpiceService.class);
+    private SpiceManager spiceManager = new SpiceManager(SampleInMemorySpiceService.class);
 
     private TextView resultTextView;
     private EditText wordField;
@@ -50,6 +51,9 @@ public class MainFragment extends Fragment {
     public void onStart() {
         super.onStart();
         spiceManager.start(getActivity());
+        if (wordField.getText() != null) {
+            spiceManager.addListenerIfPending(String.class, wordField.getText().toString(), new ReverseStringRequestListener());
+        }
     }
 
     @Override
@@ -76,7 +80,7 @@ public class MainFragment extends Fragment {
         MainFragment.this.getActivity().setProgressBarIndeterminateVisibility(true);
 
         ReverseStringRequest request = new ReverseStringRequest(searchQuery);
-        spiceManager.execute(request, new ReverseStringRequestListener());
+        spiceManager.execute(request, searchQuery, DurationInMillis.ALWAYS_RETURNED, new ReverseStringRequestListener());
 
         hideKeyboard();
     }
