@@ -26,6 +26,11 @@
         <service
             android:name="com.octo.android.robospice.sample.ormlite.network.SampleSpiceService"
             android:exported="false" />
+
+        <provider
+            android:name=".provider.SampleContentProvider"
+            android:authorities="com.octo.android.robospice.sample.ormlite"
+            android:exported="false" />
     </application>
 
 </manifest>

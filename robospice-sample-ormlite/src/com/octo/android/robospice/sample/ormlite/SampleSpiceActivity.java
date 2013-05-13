@@ -9,6 +9,7 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.sample.ormlite.model.Weather;
+import com.octo.android.robospice.sample.ormlite.network.SampleXmlRequest;
 
 /**
  * This sample demonstrates how to use RoboSpice to perform simple network requests.

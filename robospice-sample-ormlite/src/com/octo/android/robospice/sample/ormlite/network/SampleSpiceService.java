@@ -1,4 +1,4 @@
-package com.octo.android.robospice.sample.ormlite;
+package com.octo.android.robospice.sample.ormlite.network;
 
 import java.util.ArrayList;
 import java.util.List;

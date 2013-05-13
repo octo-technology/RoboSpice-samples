@@ -1,0 +1,7 @@
+<factorypath>
+    <factorypathentry kind="EXTJAR" id="/Users/stephanenicolas/.m2/repository/com/tojc/ormlite/android/ormlite-content-provider-compiler/1.0.0-SNAPSHOT/ormlite-content-provider-compiler-1.0.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/Users/stephanenicolas/.m2/repository/com/j256/ormlite/ormlite-android/4.43/ormlite-android-4.43.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/Users/stephanenicolas/.m2/repository/com/j256/ormlite/ormlite-core/4.43/ormlite-core-4.43.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/Users/stephanenicolas/.m2/repository/com/squareup/javawriter/1.0.5/javawriter-1.0.5.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="/Users/stephanenicolas/.m2/repository/com/tojc/ormlite/android/ormlite-content-provider/1.0.0-SNAPSHOT/ormlite-content-provider-1.0.0-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>

@@ -4,22 +4,24 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.octo.android.robospice</groupId>
-	<artifactId>robospice-sample-ui-spicelist</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<artifactId>robospice-sample-ormlite-content-provider</artifactId>
+	<version>1.0.O-SNAPSHOT</version>
 	<packaging>apk</packaging>
-	<name>Robospice - Sample SpiceList + SpringAndroid</name>
-	<description>A simple sample that demonstrates how to use the UI SpiceList module of RoboSpice. As it is only a UI extension, we will combine it with SpringAndroid for REST requests.</description>
+	<name>Robospice - Sample ORMLite + SpringAndroid</name>
+	<description>A simple sample that demonstrates how to use the ORMLite module + ORMLite Content Provider and RoboSpice. As it is only a caching extension, we will combine it with SpringAndroid for REST requests.</description>
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
+		<robospice.ormlite.content.provider.version>1.4.2-SNAPSHOT</robospice.ormlite.content.provider.version>
 		<robospice.spring.android.version>1.4.2-SNAPSHOT</robospice.spring.android.version>
-		<robospice.ui.spicelist.version>1.4.2-SNAPSHOT</robospice.ui.spicelist.version>
-		<jackson.version>1.9.9</jackson.version>
+		<ormlite.content.provider.version>1.0.0-SNAPSHOT</ormlite.content.provider.version>
+		<spring.android.version>1.0.1.RELEASE</spring.android.version>
+		<simplexmlserializer.version>2.6.6</simplexmlserializer.version>
 		<commons.logging.version>1.1.1</commons.logging.version>
 		<android-maven-plugin.version>3.5.0</android-maven-plugin.version>
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
-		<maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>				
+		<maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -31,18 +33,35 @@
 		</dependency>
 		<dependency>
 			<groupId>com.octo.android.robospice</groupId>
+			<artifactId>robospice-ormlite-content-provider</artifactId>
+			<version>${robospice.ormlite.content.provider.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.octo.android.robospice</groupId>
 			<artifactId>robospice-spring-android</artifactId>
 			<version>${robospice.spring.android.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>${jackson.version}</version>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>${simplexmlserializer.version}</version>
+			<!-- must be re-declared -->
+			<exclusions>
+				<exclusion>
+					<groupId>xpp3</groupId>
+					<artifactId>xpp3</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>stax</groupId>
+					<artifactId>stax-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.octo.android.robospice</groupId>
-			<artifactId>robospice-ui-spicelist</artifactId>
-			<version>${robospice.ui.spicelist.version}</version>
+			<groupId>com.tojc.ormlite.android</groupId>
+			<artifactId>ormlite-content-provider-compiler</artifactId>
+			<version>${ormlite.content.provider.version}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -55,6 +74,10 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<version>${android-maven-plugin.version}</version>
 				<configuration>
+					<androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
+					<assetsDirectory>${project.basedir}/assets</assetsDirectory>
+					<resourceDirectory>${project.basedir}/res</resourceDirectory>
+					<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
 					<sdk>
 						<platform>7</platform>
 					</sdk>
