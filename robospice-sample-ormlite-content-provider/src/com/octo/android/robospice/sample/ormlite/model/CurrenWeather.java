@@ -5,13 +5,9 @@ import org.simpleframework.xml.Element;
 import android.provider.BaseColumns;
 
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-import com.tojc.ormlite.android.annotation.AdditionalAnnotation.DefaultContentMimeTypeVnd;
-import com.tojc.ormlite.android.annotation.AdditionalAnnotation.DefaultContentUri;
+import com.tojc.ormlite.android.annotation.AdditionalAnnotation.Contract;
 
-@DatabaseTable(tableName = "curren_weather")
-@DefaultContentUri(authority = "com.octo.android.robospice.sample.ormlite", path = "curren_weather")
-@DefaultContentMimeTypeVnd(name = "com.octo.android.robospice.sample.ormlite", type = "current_weather")
+@Contract
 public class CurrenWeather {
 
     @DatabaseField(columnName = BaseColumns._ID, generatedId = true)

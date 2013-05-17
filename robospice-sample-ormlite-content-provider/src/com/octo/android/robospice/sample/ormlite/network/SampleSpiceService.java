@@ -48,7 +48,7 @@ public class SampleSpiceService extends SpringAndroidSpiceService {
         classCollection.add(Wind.class);
 
         // init
-        RoboSpiceDatabaseHelper databaseHelper = new RoboSpiceDatabaseHelper(application, DATABASE_NAME, 1);
+        RoboSpiceDatabaseHelper databaseHelper = new RoboSpiceDatabaseHelper(application, DATABASE_NAME, DATABASE_VERSION);
         InDatabaseObjectPersisterFactory inDatabaseObjectPersisterFactory = new InDatabaseObjectPersisterFactory(application, databaseHelper, classCollection);
         cacheManager.addPersister(inDatabaseObjectPersisterFactory);
         return cacheManager;

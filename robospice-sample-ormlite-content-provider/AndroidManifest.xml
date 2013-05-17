@@ -29,7 +29,7 @@
 
         <provider
             android:name=".provider.SampleContentProvider"
-            android:authorities="com.octo.android.robospice.sample.ormlite"
+            android:authorities="com.octo.android.robospice.sample.ormlite.model"
             android:exported="false" />
     </application>
 
