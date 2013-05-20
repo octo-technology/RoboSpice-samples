@@ -12,7 +12,7 @@
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
-		<robospice.retrofit.version>1.4.1-SNAPSHOT</robospice.retrofit.version>
+		<robospice.retrofit.version>1.4.2-SNAPSHOT</robospice.retrofit.version>
 		<google.http.client.version>1.13.1-beta</google.http.client.version>
 		<commons.logging.version>1.1.1</commons.logging.version>
 		<android-maven-plugin.version>3.5.0</android-maven-plugin.version>

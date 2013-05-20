@@ -2,5 +2,5 @@
 <resources>
     <string name="hello">Hello RoboSpice!</string>
     <string name="app_name">RoboSpice Retrofit sample</string>
-    <string name="textview_text">Last tweet :</string>
+    <string name="textview_text">RoboSpice contributors :</string>
 </resources>

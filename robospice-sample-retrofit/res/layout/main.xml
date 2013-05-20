@@ -8,8 +8,7 @@
         android:id="@+id/textview_lorem_ipsum"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:singleLine="true"
+        android:singleLine="false"
         android:text="@string/textview_text" />
 
 </LinearLayout>

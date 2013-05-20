@@ -8,13 +8,12 @@ import android.widget.Toast;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-import com.octo.android.robospice.sample.retrofit.model.ListTweet;
+import com.octo.android.robospice.sample.retrofit.model.Contributor;
+import com.octo.android.robospice.sample.retrofit.network.SampleRetrofitSpiceRequest;
 
 /**
  * This sample demonstrates how to use RoboSpice to perform simple network requests.
- * 
  * @author sni
- * 
  */
 public class SampleSpiceActivity extends BaseSampleSpiceActivity {
 
@@ -22,52 +21,69 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
     // ATTRIBUTES
     // ============================================================================================
 
-    private TextView mLoremTextView;
+    private TextView mTextView;
 
-    private SampleRetrofitSpiceRequest weatherRequest;
+    private SampleRetrofitSpiceRequest githubRequest;
 
     // ============================================================================================
     // ACTIVITY LIFE CYCLE
     // ============================================================================================
 
     @Override
-    public void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
-        requestWindowFeature( Window.FEATURE_PROGRESS );
-        setContentView( R.layout.main );
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
+        setContentView(R.layout.main);
 
-        mLoremTextView = (TextView) findViewById( R.id.textview_lorem_ipsum );
+        mTextView = (TextView) findViewById(R.id.textview_lorem_ipsum);
 
-        weatherRequest = new SampleRetrofitSpiceRequest( "horse_ebooks" );
+        githubRequest = new SampleRetrofitSpiceRequest("octo-online", "robospice");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        getSpiceManager().execute(githubRequest, "github", DurationInMillis.ONE_MINUTE, new ListContributorRequestListener());
+    }
 
-        setProgressBarIndeterminate( false );
-        setProgressBarVisibility( true );
+    // ============================================================================================
+    // PRIVATE METHODS
+    // ============================================================================================
 
-        getSpiceManager().execute( weatherRequest, "json", DurationInMillis.ONE_MINUTE, new ListTweetRequestListener() );
+    private void updateContributors(final Contributor.List result) {
+        String originalText = getString(R.string.textview_text);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(originalText);
+        builder.append('\n');
+        builder.append('\n');
+        for (Contributor contributor : result) {
+            builder.append('\t');
+            builder.append(contributor.login);
+            builder.append('\t');
+            builder.append('(');
+            builder.append(contributor.contributions);
+            builder.append(')');
+            builder.append('\n');
+        }
+        mTextView.setText(builder.toString());
     }
 
     // ============================================================================================
     // INNER CLASSES
     // ============================================================================================
 
-    public final class ListTweetRequestListener implements RequestListener< ListTweet > {
+    public final class ListContributorRequestListener implements RequestListener<Contributor.List> {
 
         @Override
-        public void onRequestFailure( SpiceException spiceException ) {
-            Toast.makeText( SampleSpiceActivity.this, "failure", Toast.LENGTH_SHORT ).show();
+        public void onRequestFailure(SpiceException spiceException) {
+            Toast.makeText(SampleSpiceActivity.this, "failure", Toast.LENGTH_SHORT).show();
         }
 
         @Override
-        public void onRequestSuccess( final ListTweet result ) {
-            Toast.makeText( SampleSpiceActivity.this, "success", Toast.LENGTH_SHORT ).show();
-            String originalText = getString( R.string.textview_text );
-            mLoremTextView.setText( originalText + result.get( 0 ).getText() );
+        public void onRequestSuccess(final Contributor.List result) {
+            Toast.makeText(SampleSpiceActivity.this, "success", Toast.LENGTH_SHORT).show();
+            updateContributors(result);
         }
     }
-
 }

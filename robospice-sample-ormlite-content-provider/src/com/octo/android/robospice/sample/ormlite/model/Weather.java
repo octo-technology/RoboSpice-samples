@@ -10,8 +10,10 @@ import android.provider.BaseColumns;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
+import com.tojc.ormlite.android.annotation.AdditionalAnnotation.Contract;
 
 @Root
+@Contract
 public class Weather {
 
     @DatabaseField(columnName = BaseColumns._ID, generatedId = true)
