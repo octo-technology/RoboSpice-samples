@@ -1,16 +1,15 @@
 package com.octo.android.robospice.sample.ormlite;
 
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.sample.ormlite.model.CurrenWeatherContract;
-import com.octo.android.robospice.sample.ormlite.model.Weather;
+import com.octo.android.robospice.sample.ormlite.model.WeatherContract;
 import com.octo.android.robospice.sample.ormlite.network.SampleXmlRequest;
 
 /**
@@ -26,6 +25,8 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
     private TextView mLoremTextView;
 
     private SampleXmlRequest weatherRequest;
+
+    private WeatherObserver weatherObserver;
 
     // ============================================================================================
     // ACTIVITY LIFE CYCLE
@@ -49,7 +50,16 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
         setProgressBarIndeterminate(false);
         setProgressBarVisibility(true);
 
-        getSpiceManager().execute(weatherRequest, new Integer(0), DurationInMillis.ONE_MINUTE, new WeatherRequestListener());
+        try {
+            weatherObserver = new WeatherObserver(new Handler());
+            getContentResolver().registerContentObserver(WeatherContract.CONTENT_URI, true, weatherObserver);
+        } catch (Exception e) {
+            mLoremTextView.setText("Impossible to observer changes for " + WeatherContract.CONTENT_URI);
+            e.printStackTrace();
+        }
+
+        getSpiceManager().execute(weatherRequest, new Integer(0), DurationInMillis.ALWAYS_EXPIRED, null);
+
     }
 
     // ============================================================================================
@@ -70,21 +80,18 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
     // INNER CLASSES
     // ============================================================================================
 
-    public final class WeatherRequestListener implements RequestListener<Weather> {
-
-        @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(SampleSpiceActivity.this, "failure", Toast.LENGTH_SHORT).show();
+    public class WeatherObserver extends ContentObserver {
+        public WeatherObserver(Handler handler) throws ClassNotFoundException, IllegalAccessException, NoSuchFieldException {
+            super(handler);
         }
 
         @Override
-        public void onRequestSuccess(final Weather result) {
-            Toast.makeText(SampleSpiceActivity.this, "success", Toast.LENGTH_SHORT).show();
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
             String originalText = getString(R.string.textview_text);
             String temperature = getTemperatureViaContentProvider();
             mLoremTextView.setText(originalText + temperature);
         }
-
     }
 
 }

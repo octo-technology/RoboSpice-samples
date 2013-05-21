@@ -19,6 +19,9 @@ public final class WeatherContract
 
   public static final Uri CONTENT_URI = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(AUTHORITY).appendPath(CONTENT_URI_PATH).build();
 
+  private WeatherContract() {
+  }
+
 
   public static final String EMPTYFIELD = "emptyField";
 }

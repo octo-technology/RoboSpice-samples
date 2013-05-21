@@ -12,7 +12,7 @@
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
-		<robospice.ormlite.content.provider.version>1.4.2-SNAPSHOT</robospice.ormlite.content.provider.version>
+		<robospice.ormlite.content.provider.version>1.4.3-SNAPSHOT</robospice.ormlite.content.provider.version>
 		<robospice.spring.android.version>1.4.2-SNAPSHOT</robospice.spring.android.version>
 		<ormlite.content.provider.version>1.0.0-SNAPSHOT</ormlite.content.provider.version>
 		<spring.android.version>1.0.1.RELEASE</spring.android.version>

@@ -14,7 +14,7 @@ import android.app.Application;
 
 import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
-import com.octo.android.robospice.persistence.ormlite.InDatabaseObjectPersisterFactory;
+import com.octo.android.robospice.persistence.ormlite.InDatabaseObjectPersisterFactoryWithContentProvider;
 import com.octo.android.robospice.persistence.ormlite.RoboSpiceDatabaseHelper;
 import com.octo.android.robospice.sample.ormlite.model.CurrenWeather;
 import com.octo.android.robospice.sample.ormlite.model.Day;
@@ -39,7 +39,9 @@ public class SampleSpiceService extends SpringAndroidSpiceService {
         CacheManager cacheManager = new CacheManager();
         List<Class<?>> classCollection = new ArrayList<Class<?>>();
 
-        // add persisted classes to class collection
+        // add persisted classes to class collection, if they have a contract annotation,
+        // contentprovider observers will be notified
+        // of any change.
         classCollection.add(Weather.class);
         classCollection.add(CurrenWeather.class);
         classCollection.add(Day.class);
@@ -49,8 +51,9 @@ public class SampleSpiceService extends SpringAndroidSpiceService {
 
         // init
         RoboSpiceDatabaseHelper databaseHelper = new RoboSpiceDatabaseHelper(application, DATABASE_NAME, DATABASE_VERSION);
-        InDatabaseObjectPersisterFactory inDatabaseObjectPersisterFactory = new InDatabaseObjectPersisterFactory(application, databaseHelper, classCollection);
-        cacheManager.addPersister(inDatabaseObjectPersisterFactory);
+        InDatabaseObjectPersisterFactoryWithContentProvider inDatabaseObjectPersisterFactoryWithContentProvider = new InDatabaseObjectPersisterFactoryWithContentProvider(application, databaseHelper,
+                classCollection);
+        cacheManager.addPersister(inDatabaseObjectPersisterFactoryWithContentProvider);
         return cacheManager;
     }
 

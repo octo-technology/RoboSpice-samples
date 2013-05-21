@@ -19,6 +19,9 @@ public final class CurrenWeatherContract
 
   public static final Uri CONTENT_URI = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(AUTHORITY).appendPath(CONTENT_URI_PATH).build();
 
+  private CurrenWeatherContract() {
+  }
+
 
   public static final String HUMIDITY = "humidity";
   public static final String PRESSURE = "pressure";
