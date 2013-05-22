@@ -58,7 +58,11 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onStop() {
-        spiceManager.shouldStop();
+        // Please review https://github.com/octo-online/robospice/issues/96 for the reason of that
+        // ugly if statement.
+        if (spiceManager.isStarted()) {
+            spiceManager.shouldStop();
+        }
         super.onStop();
     }
 
