@@ -16,7 +16,9 @@
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher_robospice"
         android:label="@string/app_name" >
-        <activity android:name="com.octo.android.robospice.sample.core.SampleSpiceActivity" >
+        <activity
+            android:name="com.octo.android.robospice.sample.core.SampleSpiceActivity"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

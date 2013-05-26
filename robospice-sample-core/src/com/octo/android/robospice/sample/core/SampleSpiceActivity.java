@@ -4,6 +4,7 @@ import java.io.File;
 
 import roboguice.util.temp.Ln;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
@@ -62,6 +63,15 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
 
         getSpiceManager().execute(loremRequest, "txt", DurationInMillis.ONE_MINUTE, new LoremRequestListener());
         getSpiceManager().execute(imageRequest, EARTH_IMAGE_CACHE_KEY, 5 * DurationInMillis.ONE_MINUTE, new ImageRequestListener());
+    }
+
+    @Override
+    protected void onStop() {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) mImageView.getDrawable();
+        if (bitmapDrawable != null) {
+            bitmapDrawable.getBitmap().recycle();
+        }
+        super.onStop();
     }
 
     // ============================================================================================

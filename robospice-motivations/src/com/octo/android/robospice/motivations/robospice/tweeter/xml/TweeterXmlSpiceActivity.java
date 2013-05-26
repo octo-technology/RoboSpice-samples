@@ -28,9 +28,7 @@ import com.octo.android.robospice.request.listener.RequestProgressListener;
 
 /**
  * A simple ListActivity that display Tweets that contain the word Android in them.
- * 
  * @author sni
- * 
  */
 @ContentView(R.layout.activity_tweet_demo)
 public class TweeterXmlSpiceActivity extends BaseActivity {
@@ -38,9 +36,9 @@ public class TweeterXmlSpiceActivity extends BaseActivity {
     private static final String XML_CACHE_KEY = "tweets_xml";
     private static final int REQUEST_DELAY = 10 * 1000;
     private static final int SIZE_OF_BUFFER_SO_SIMULATE_OUT_OF_MEMORY = 1000000;
-    private byte[] bufferToFillMemoryFaster = new byte[ SIZE_OF_BUFFER_SO_SIMULATE_OUT_OF_MEMORY ];
+    private byte[] bufferToFillMemoryFaster = new byte[SIZE_OF_BUFFER_SO_SIMULATE_OUT_OF_MEMORY];
 
-    private ArrayAdapter< String > mAdapter;
+    private ArrayAdapter<String> mAdapter;
 
     @InjectView(R.id.listView_tweets)
     private ListView listView;
@@ -57,27 +55,27 @@ public class TweeterXmlSpiceActivity extends BaseActivity {
     @InjectView(R.id.checkbox_delay)
     private CheckBox checkBoxDelay;
 
-    private SpiceManager spiceManager = new SpiceManager( TweeterXmlSpiceService.class );
+    private SpiceManager spiceManager = new SpiceManager(TweeterXmlSpiceService.class);
     private TweetXmlRequest tweetXmlRequest;
 
     @Override
-    public void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        mAdapter = new ArrayAdapter< String >( this, R.layout.view_item_white );
+        mAdapter = new ArrayAdapter<String>(this, R.layout.view_item_white);
 
         // Let's set our list adapter to a simple ArrayAdapter.
-        listView.setAdapter( mAdapter );
-        getSupportActionBar().setTitle( getDemoTitle() );
-        getSupportActionBar().setSubtitle( getDemoSubtitle() );
-        webViewExplanation.loadUrl( "file:///android_asset/" + getDemoExplanation() );
+        listView.setAdapter(mAdapter);
+        getSupportActionBar().setTitle(getDemoTitle());
+        getSupportActionBar().setSubtitle(getDemoSubtitle());
+        webViewExplanation.loadUrl("file:///android_asset/" + getDemoExplanation());
 
-        ActivityManager activityManager = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         MemoryInfo mi = new MemoryInfo();
-        activityManager.getMemoryInfo( mi );
-        bufferToFillMemoryFaster = new byte[ (int) Math.max( mi.availMem / 100, SIZE_OF_BUFFER_SO_SIMULATE_OUT_OF_MEMORY ) ];
-        Log.v( getClass().getSimpleName(), "Keeping buffer in memory, size= " + bufferToFillMemoryFaster.length );
-        textViewMemory.setText( getString( R.string.text_available_memory, mi.availMem / 1024 ) );
+        activityManager.getMemoryInfo(mi);
+        bufferToFillMemoryFaster = new byte[(int) Math.max(mi.availMem / 100, SIZE_OF_BUFFER_SO_SIMULATE_OUT_OF_MEMORY)];
+        Log.v(getClass().getSimpleName(), "Keeping buffer in memory, size= " + bufferToFillMemoryFaster.length);
+        textViewMemory.setText(getString(R.string.text_available_memory, mi.availMem / 1024));
     }
 
     // TODO service should stop when there is no more request and no bound activities.
@@ -85,9 +83,9 @@ public class TweeterXmlSpiceActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        spiceManager.start( this );
-        spiceManager.addListenerIfPending( Feed.class, XML_CACHE_KEY, new TweetRequestListener() );
-        spiceManager.getFromCache( Feed.class, XML_CACHE_KEY, DurationInMillis.ALWAYS, new TweetRequestListener() );
+        spiceManager.start(this);
+        spiceManager.addListenerIfPending(Feed.class, XML_CACHE_KEY, new TweetRequestListener());
+        spiceManager.getFromCache(Feed.class, XML_CACHE_KEY, DurationInMillis.ALWAYS_RETURNED, new TweetRequestListener());
     }
 
     @Override
@@ -99,66 +97,67 @@ public class TweeterXmlSpiceActivity extends BaseActivity {
     @Override
     public void startDemo() {
         long delay = checkBoxDelay.isChecked() ? REQUEST_DELAY : 0;
-        tweetXmlRequest = new TweetXmlRequest( delay );
-        spiceManager.execute( tweetXmlRequest, XML_CACHE_KEY, DurationInMillis.NEVER, new TweetRequestListener() );
+        tweetXmlRequest = new TweetXmlRequest(delay);
+        spiceManager.execute(tweetXmlRequest, XML_CACHE_KEY, DurationInMillis.ALWAYS_RETURNED, new TweetRequestListener());
     }
 
     @Override
     public void stopDemo() {
-        if ( tweetXmlRequest != null ) {
+        if (tweetXmlRequest != null) {
             tweetXmlRequest.cancel();
         }
     }
 
-    private class TweetRequestListener implements RequestListener< Feed >, RequestProgressListener {
+    private class TweetRequestListener implements RequestListener<Feed>, RequestProgressListener {
 
         @Override
-        public void onRequestFailure( SpiceException arg0 ) {
-            if ( !( arg0 instanceof RequestCancelledException ) ) {
-                Toast.makeText( TweeterXmlSpiceActivity.this, "Failed to load Twitter data.", Toast.LENGTH_SHORT ).show();
+        public void onRequestFailure(SpiceException arg0) {
+            if (!(arg0 instanceof RequestCancelledException)) {
+                Toast.makeText(TweeterXmlSpiceActivity.this, "Failed to load Twitter data.", Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
-        public void onRequestSuccess( Feed feed ) {
+        public void onRequestSuccess(Feed feed) {
 
-            if ( feed == null ) {
+            if (feed == null) {
                 return;
             }
-            // Toast.makeText( RestSpiceActivity.this, "Success to load Twitter data.", Toast.LENGTH_SHORT ).show();
+            // Toast.makeText( RestSpiceActivity.this, "Success to load Twitter data.",
+            // Toast.LENGTH_SHORT ).show();
             mAdapter.clear();
-            for ( Entry entry : feed.getListEntry() ) {
-                mAdapter.add( entry.getTitle() );
+            for (Entry entry : feed.getListEntry()) {
+                mAdapter.add(entry.getTitle());
             }
             mAdapter.notifyDataSetChanged();
         }
 
         @Override
-        public void onRequestProgressUpdate( RequestProgress progress ) {
-            String status = convertProgressToString( progress );
-            textViewProgress.setText( status );
+        public void onRequestProgressUpdate(RequestProgress progress) {
+            String status = convertProgressToString(progress);
+            textViewProgress.setText(status);
         }
 
     }
 
     @Override
-    public void onStartButtonClick( View v ) {
+    public void onStartButtonClick(View v) {
         startDemo();
     }
 
     @Override
-    public void onCancelButtonClick( View v ) {
+    public void onCancelButtonClick(View v) {
         stopDemo();
     }
 
     @Override
     public String getDemoTitle() {
-        return getString( R.string.text_networking_example );
+        return getString(R.string.text_networking_example);
     }
 
     @Override
     public String getDemoSubtitle() {
-        return getString( R.string.text_spice_rest_xml_name );
+        return getString(R.string.text_spice_rest_xml_name);
     }
 
     @Override
@@ -166,9 +165,9 @@ public class TweeterXmlSpiceActivity extends BaseActivity {
         return "spice_rest_ormlite.html";
     }
 
-    private String convertProgressToString( RequestProgress progress ) {
+    private String convertProgressToString(RequestProgress progress) {
         String status = "";
-        switch ( progress.getStatus() ) {
+        switch (progress.getStatus()) {
             case READING_FROM_CACHE:
                 status = "? cache -->";
                 break;
