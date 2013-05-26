@@ -25,7 +25,7 @@
         </activity>
 
         <service
-            android:name="com.octo.android.robospice.retrofit.RetrofitGsonSpiceService"
+            android:name="com.octo.android.robospice.sample.retrofit.network.SampleRetrofitSpiceService"
             android:exported="false" />
     </application>
 
