@@ -3,8 +3,6 @@ package com.octo.android.robospice.sample.core;
 import java.io.File;
 
 import roboguice.util.temp.Ln;
-import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
@@ -51,12 +49,8 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
         mImageView = (ImageView) findViewById(R.id.textview_image);
 
         loremRequest = new SimpleTextRequest("http://www.loremipsum.de/downloads/original.txt");
-        File cacheFile = new File(getApplication().getCacheDir(), "earth.jpg");
+        File cacheFile = new File(getCacheDir(), "earth.jpg");
         imageRequest = new BitmapRequest("http://earthobservatory.nasa.gov/blogs/elegantfigures/files/2011/10/globe_west_2048.jpg", cacheFile);
-        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        MemoryInfo mi = new MemoryInfo();
-        activityManager.getMemoryInfo(mi);
-        System.out.println(mi.availMem);
     }
 
     @Override

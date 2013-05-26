@@ -37,9 +37,7 @@ import com.octo.android.robospice.request.simple.BigBinaryRequest;
 
 /**
  * A simple ListActivity that display Tweets that contain the word Android in them.
- * 
  * @author Neil Goodman
- * 
  */
 @ContentView(R.layout.activity_image)
 public class ImageSpiceActivity extends BaseActivity {
@@ -62,49 +60,49 @@ public class ImageSpiceActivity extends BaseActivity {
     @InjectView(R.id.textView_memory)
     protected TextView textViewMemory;
 
-    private SpiceManager spiceManager = new SpiceManager( TweeterJsonSpringAndroidSpiceService.class );
+    private SpiceManager spiceManager = new SpiceManager(TweeterJsonSpringAndroidSpiceService.class);
     private BigBinaryRequest imageRequest;
 
     protected long delay = 0;
 
     @Override
-    public void onCreate( Bundle savedInstanceState ) {
-        super.onCreate( savedInstanceState );
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Let's set our list adapter to a simple ArrayAdapter.
 
-        getSupportActionBar().setTitle( getDemoTitle() );
-        getSupportActionBar().setSubtitle( getDemoSubtitle() );
-        progressBar.setMax( MAX_PROGRESS );
+        getSupportActionBar().setTitle(getDemoTitle());
+        getSupportActionBar().setSubtitle(getDemoSubtitle());
+        progressBar.setMax(MAX_PROGRESS);
 
-        ActivityManager activityManager = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         MemoryInfo mi = new MemoryInfo();
-        activityManager.getMemoryInfo( mi );
-        textViewMemory.setText( getString( R.string.text_available_memory, mi.availMem / 1024 ) );
-        setImageVisible( false );
+        activityManager.getMemoryInfo(mi);
+        textViewMemory.setText(getString(R.string.text_available_memory, mi.availMem / 1024));
+        setImageVisible(false);
     }
 
     @Override
-    public boolean onCreateOptionsMenu( Menu menu ) {
-        getSupportMenuInflater().inflate( R.menu.activity_main, menu );
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getSupportMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected( MenuItem item ) {
-        Intent intent = new Intent( this, InfoActivity.class );
-        intent.putExtra( InfoActivity.BUNDLE_KEY_INFO_FILE_NAME, "spice_image.html" );
-        startActivity( intent );
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(this, InfoActivity.class);
+        intent.putExtra(InfoActivity.BUNDLE_KEY_INFO_FILE_NAME, "spice_image.html");
+        startActivity(intent);
         return true;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        spiceManager.start( this );
+        spiceManager.start(this);
 
-        spiceManager.addListenerIfPending( InputStream.class, EARTH_IMAGE_CACHE_KEY, new ImageRequestListener() );
-        spiceManager.getFromCache( InputStream.class, EARTH_IMAGE_CACHE_KEY, DurationInMillis.ALWAYS, new ImageRequestListener() );
+        spiceManager.addListenerIfPending(InputStream.class, EARTH_IMAGE_CACHE_KEY, new ImageRequestListener());
+        spiceManager.getFromCache(InputStream.class, EARTH_IMAGE_CACHE_KEY, DurationInMillis.ALWAYS_RETURNED, new ImageRequestListener());
     }
 
     @Override
@@ -116,85 +114,85 @@ public class ImageSpiceActivity extends BaseActivity {
     @Override
     public void startDemo() {
 
-        File cacheFile = new File( getCacheDir(), "earth.jpg" );
-        imageRequest = new BigBinaryRequest( "http://earthobservatory.nasa.gov/blogs/elegantfigures/files/2011/10/globe_west_2048.jpg", cacheFile );
-        spiceManager.execute( imageRequest, EARTH_IMAGE_CACHE_KEY, DurationInMillis.NEVER, new ImageRequestListener() );
-        Intent intent = SpiceNotificationService.createIntent( this, ImageSpiceNotificationService.class, TweeterJsonSpringAndroidSpiceService.class, 70,
-                InputStream.class, EARTH_IMAGE_CACHE_KEY, false );
-        startService( intent );
+        File cacheFile = new File(getCacheDir(), "earth.jpg");
+        imageRequest = new BigBinaryRequest("http://earthobservatory.nasa.gov/blogs/elegantfigures/files/2011/10/globe_west_2048.jpg", cacheFile);
+        spiceManager.execute(imageRequest, EARTH_IMAGE_CACHE_KEY, DurationInMillis.ALWAYS_EXPIRED, new ImageRequestListener());
+        Intent intent = SpiceNotificationService.createIntent(this, ImageSpiceNotificationService.class, TweeterJsonSpringAndroidSpiceService.class, 70, InputStream.class, EARTH_IMAGE_CACHE_KEY,
+                false);
+        startService(intent);
     }
 
     @Override
     public void stopDemo() {
-        if ( imageRequest != null ) {
+        if (imageRequest != null) {
             imageRequest.cancel();
         }
     }
 
-    private void setImageVisible( boolean visible ) {
-        if ( visible ) {
-            textViewEmpty.setVisibility( View.GONE );
-            scrollView.setVisibility( View.VISIBLE );
+    private void setImageVisible(boolean visible) {
+        if (visible) {
+            textViewEmpty.setVisibility(View.GONE);
+            scrollView.setVisibility(View.VISIBLE);
         } else {
-            textViewEmpty.setVisibility( View.VISIBLE );
-            scrollView.setVisibility( View.GONE );
+            textViewEmpty.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.GONE);
         }
     }
 
-    private class ImageRequestListener implements RequestListener< InputStream >, RequestProgressListener {
+    private class ImageRequestListener implements RequestListener<InputStream>, RequestProgressListener {
 
         @Override
-        public void onRequestFailure( SpiceException arg0 ) {
-            if ( !( arg0 instanceof RequestCancelledException ) ) {
-                Toast.makeText( ImageSpiceActivity.this, "Failed to load Twitter data.", Toast.LENGTH_SHORT ).show();
-                setImageVisible( false );
+        public void onRequestFailure(SpiceException arg0) {
+            if (!(arg0 instanceof RequestCancelledException)) {
+                Toast.makeText(ImageSpiceActivity.this, "Failed to load Twitter data.", Toast.LENGTH_SHORT).show();
+                setImageVisible(false);
             }
         }
 
         @Override
-        public void onRequestSuccess( InputStream inputStream ) {
+        public void onRequestSuccess(InputStream inputStream) {
 
-            if ( inputStream == null ) {
-                setImageVisible( false );
+            if (inputStream == null) {
+                setImageVisible(false);
                 return;
             }
-            setImageVisible( true );
+            setImageVisible(true);
 
-            Drawable drawable = new BitmapDrawable( getResources(), BitmapFactory.decodeStream( inputStream ) );
-            imageView.setImageDrawable( drawable );
+            Drawable drawable = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(inputStream));
+            imageView.setImageDrawable(drawable);
         }
 
         @Override
-        public void onRequestProgressUpdate( RequestProgress progress ) {
-            progressBar.setProgress( Math.round( progress.getProgress() * MAX_PROGRESS ) );
+        public void onRequestProgressUpdate(RequestProgress progress) {
+            progressBar.setProgress(Math.round(progress.getProgress() * MAX_PROGRESS));
         }
     }
 
     @Override
-    public void onStartButtonClick( View v ) {
+    public void onStartButtonClick(View v) {
         startDemo();
     }
 
     @Override
-    public void onCancelButtonClick( View v ) {
-        setImageVisible( false );
+    public void onCancelButtonClick(View v) {
+        setImageVisible(false);
         stopDemo();
     }
 
-    public void onClearButtonClick( View v ) {
-        spiceManager.removeDataFromCache( InputStream.class, EARTH_IMAGE_CACHE_KEY );
-        imageView.setImageDrawable( null );
-        setImageVisible( false );
+    public void onClearButtonClick(View v) {
+        spiceManager.removeDataFromCache(InputStream.class, EARTH_IMAGE_CACHE_KEY);
+        imageView.setImageDrawable(null);
+        setImageVisible(false);
     }
 
     @Override
     public String getDemoTitle() {
-        return getString( R.string.text_networking_example );
+        return getString(R.string.text_networking_example);
     }
 
     @Override
     public String getDemoSubtitle() {
-        return getString( R.string.text_spice_image_name );
+        return getString(R.string.text_spice_image_name);
     }
 
     @Override
