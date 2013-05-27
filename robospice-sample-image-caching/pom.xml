@@ -13,7 +13,7 @@
     <properties>
         <android.version>4.1.1.4</android.version>
         <simplexml.version>2.6.9</simplexml.version>
-        <robospice.version>1.4.1-SNAPSHOT</robospice.version>
+        <robospice.version>1.4.3-SNAPSHOT</robospice.version>
         <spring.android.jackson.version>1.9.11</spring.android.jackson.version>
         <commons.logging.version>1.1.1</commons.logging.version>
         <android-maven-plugin.version>3.5.0</android-maven-plugin.version>
