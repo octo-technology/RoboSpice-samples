@@ -12,7 +12,7 @@
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
-		<robospice.ormlite.version>1.4.0</robospice.ormlite.version>
+		<robospice.ormlite.version>1.4.4-SNAPSHOT</robospice.ormlite.version>
 		<robospice.spring.android.version>1.4.0</robospice.spring.android.version>
 		<spring.android.version>1.0.1.RELEASE</spring.android.version>
 		<simplexmlserializer.version>2.6.6</simplexmlserializer.version>

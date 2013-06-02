@@ -7,6 +7,7 @@ import android.util.Log;
 import com.octo.android.robospice.XmlSpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileBitmapObjectPersister;
+import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.memory.LruCacheBitmapObjectPersister;
 
 /**
@@ -24,13 +25,11 @@ public class FlickrSpiceService extends XmlSpringAndroidSpiceService {
     }
 
     @Override
-    public CacheManager createCacheManager(Application application) {
+    public CacheManager createCacheManager(Application application) throws CacheCreationException {
         CacheManager manager = new CacheManager();
 
-        InFileBitmapObjectPersister filePersister = new InFileBitmapObjectPersister(
-            getApplication());
-        LruCacheBitmapObjectPersister memoryPersister = new LruCacheBitmapObjectPersister(
-            filePersister, 1024 * 1024);
+        InFileBitmapObjectPersister filePersister = new InFileBitmapObjectPersister(getApplication());
+        LruCacheBitmapObjectPersister memoryPersister = new LruCacheBitmapObjectPersister(filePersister, 1024 * 1024);
 
         manager.addPersister(memoryPersister);
 
