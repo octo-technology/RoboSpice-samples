@@ -85,13 +85,13 @@
 		<module>robospice-sample-core-basic</module>
 		<module>robospice-sample-core-fragment</module>
 		<module>robospice-sample-core-offline</module>
-		<module>robospice-sample-spring-android</module>
 		<module>robospice-sample-google-http-client</module>
+                <module>robospice-sample-image-caching</module>
 		<module>robospice-sample-ormlite</module>
 		<module>robospice-sample-ormlite-content-provider</module>
 		<module>robospice-sample-ui-spicelist</module>
-                <module>robospice-sample-image-caching</module>
                 <module>robospice-sample-retrofit</module>
+		<module>robospice-sample-spring-android</module>
 	</modules>
 
         <build>

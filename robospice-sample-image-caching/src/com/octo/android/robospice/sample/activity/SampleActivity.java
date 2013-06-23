@@ -11,6 +11,7 @@ import android.view.Display;
 import android.widget.GridView;
 
 import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.sample.R;
@@ -31,7 +32,7 @@ public class SampleActivity extends Activity {
 
     private FlickrPhotoAdapter photoAdapter;
 
-    private SpiceManager contentManager = new SpiceManager(FlickrSpiceService.class);
+    private SpiceManager spiceManager = new SpiceManager(FlickrSpiceService.class);
 
     /**
      * Called when the activity is first created.
@@ -51,11 +52,10 @@ public class SampleActivity extends Activity {
         int gridSize = sizeColumnsToFit(imageGrid, PHOTO_WIDTH, MIN_COLUMNS, MAX_COLUMNS);
 
         FlickrImageRequestFactory imageRequestFactory = new FlickrImageRequestFactory(this);
-        imageRequestFactory.setPhotoFormat(FlickrImageRequestFactory.LARGE_THUMB_SQUARE)
-            .setSampleSize(gridSize, gridSize);
+        imageRequestFactory.setPhotoFormat(FlickrImageRequestFactory.LARGE_THUMB_SQUARE).setSampleSize(gridSize, gridSize);
 
-        photoAdapter = new FlickrPhotoAdapter(this, R.layout.grid_view_item, R.id.image,
-            new ArrayList<FlickrPhoto>(), imageRequestFactory);
+        photoAdapter = new FlickrPhotoAdapter(this, R.layout.grid_view_item, R.id.image, new ArrayList<FlickrPhoto>(),
+                imageRequestFactory);
         imageGrid.setAdapter(photoAdapter);
         imageGrid.setOnScrollListener(photoAdapter);
     }
@@ -89,20 +89,31 @@ public class SampleActivity extends Activity {
 
     @Override
     protected void onStart() {
-        contentManager.start(this);
+        spiceManager.start(this);
 
         FlickrInterestingPhotosRequest request = new FlickrInterestingPhotosRequest(FLICKR_API_KEY);
         PhotoListRequestListener requestListener = new PhotoListRequestListener();
+        spiceManager.execute(request, requestListener);
 
-        contentManager.execute(request, requestListener);
+        spiceManager.addListenerIfPending(FlickrPhotoList.class, FLICKR_API_KEY, requestListener);
+        spiceManager.getFromCache(FlickrPhotoList.class, FLICKR_API_KEY, DurationInMillis.ONE_MINUTE, requestListener);
 
         super.onStart();
     }
 
     @Override
     protected void onStop() {
-        contentManager.shouldStop();
+        spiceManager.shouldStop();
         super.onStop();
+    }
+
+    void onClick() {
+    }
+
+    @Override
+    protected void onDestroy() {
+        spiceManager.removeDataFromCache(FlickrPhotoList.class);
+        super.onDestroy();
     }
 
     private class PhotoListRequestListener implements RequestListener<FlickrPhotoList> {
