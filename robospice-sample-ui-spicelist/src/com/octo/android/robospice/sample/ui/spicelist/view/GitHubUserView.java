@@ -7,17 +7,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.octo.android.robospice.sample.ui.spicelist.R;
-import com.octo.android.robospice.sample.ui.spicelist.model.Tweet;
+import com.octo.android.robospice.sample.ui.spicelist.model.GitHubUser;
 import com.octo.android.robospice.spicelist.SpiceListItemView;
 
-public class TweetListItemView extends RelativeLayout implements SpiceListItemView<Tweet> {
+public class GitHubUserView extends RelativeLayout implements SpiceListItemView<GitHubUser> {
 
     private TextView userNameTextView;
     private TextView tweetContentTextView;
     private ImageView thumbImageView;
-    private Tweet tweet;
+    private GitHubUser gitHubUser;
 
-    public TweetListItemView(Context context) {
+    public GitHubUserView(Context context) {
         super(context);
         inflateView(context);
     }
@@ -29,19 +29,25 @@ public class TweetListItemView extends RelativeLayout implements SpiceListItemVi
         this.thumbImageView = (ImageView) this.findViewById(R.id.octo_thumbnail_imageview);
     }
 
-    public void update(Tweet tweet) {
-        this.tweet = tweet;
-        userNameTextView.setText(tweet.getFrom_user());
-        tweetContentTextView.setText(tweet.getText());
+    @Override
+    public void update(GitHubUser gitHubUser) {
+        this.gitHubUser = gitHubUser;
+        userNameTextView.setText(gitHubUser.getName());
+        tweetContentTextView.setText(String.valueOf(gitHubUser.getScore()));
     }
 
     @Override
-    public Tweet getData() {
-        return tweet;
+    public GitHubUser getData() {
+        return gitHubUser;
     }
 
     @Override
-    public ImageView getImageView() {
+    public ImageView getImageView(int imageIndex) {
         return thumbImageView;
+    }
+
+    @Override
+    public int getImageViewCount() {
+        return 1;
     }
 }
