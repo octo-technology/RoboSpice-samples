@@ -3,15 +3,15 @@ package com.octo.android.robospice.sample.springandroid.model;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Tweet {
+public class Follower {
 
-    private String text;
+    private String login;
 
-    public String getText() {
-        return text;
+    public String getLogin() {
+        return login;
     }
 
-    public void setText( String text ) {
-        this.text = text;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

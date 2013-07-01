@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RoboSpice Spring Android Sample</string>
-    <string name="search_hint_text">Search something…</string>
+    <string name="search_hint_text">Type Github username…</string>
     <string name="search_button_text">Search</string>
 </resources>
