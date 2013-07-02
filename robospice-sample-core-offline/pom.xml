@@ -12,8 +12,8 @@
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
-		<robospice.version>1.4.5-SNAPSHOT</robospice.version>
-		<android-maven-plugin.version>3.5.0</android-maven-plugin.version>
+		<robospice.version>1.4.6-SNAPSHOT</robospice.version>
+		<android-maven-plugin.version>3.6.0</android-maven-plugin.version>
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>
@@ -47,7 +47,7 @@
 					<resourceDirectory>${project.basedir}/res</resourceDirectory>
 					<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
 					<sdk>
-						<platform>7</platform>
+						<platform>16</platform>
 					</sdk>
 					<undeployBeforeDeploy>true</undeployBeforeDeploy>
 				</configuration>

@@ -13,10 +13,10 @@
 	<properties>
 		<android.version>4.1.1.4</android.version>
 		<android.support.version>r7</android.support.version>
-		<robospice.version>1.4.5-SNAPSHOT</robospice.version>
+		<robospice.version>1.4.6-SNAPSHOT</robospice.version>
 		<spring.android.jackson.version>1.9.11</spring.android.jackson.version>
 		<commons.logging.version>1.1.3</commons.logging.version>
-		<android-maven-plugin.version>3.5.0</android-maven-plugin.version>
+		<android-maven-plugin.version>3.6.0</android-maven-plugin.version>
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>				
