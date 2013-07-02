@@ -44,3 +44,7 @@ default.properties
 
 #symoblic link to action bar sherlock
 library
+
+#Gradle
+.gradle/
+build/

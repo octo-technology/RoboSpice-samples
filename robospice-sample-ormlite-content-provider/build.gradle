@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.4.3'
+    }
+}
+
+apply plugin: 'android'
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group:'com.octo.android.robospice', name:'robospice-spring-android', version:'1.4.6-SNAPSHOT'
+    compile group:'com.octo.android.robospice', name:'robospice-ormlite-content-provider', version:'1.4.6-SNAPSHOT'    
+    compile ('org.simpleframework:simple-xml:2.7'){
+        exclude group: 'xpp3', module: 'xpp3'
+        exclude group: 'stax', module: 'stax'
+        exclude group: 'stax', module: 'stax-api'
+    }
+
+}
+
+android {
+    buildToolsVersion "17.0"
+    compileSdkVersion 16
+}

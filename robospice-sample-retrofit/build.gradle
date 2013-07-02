@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.4.3'
+    }
+}
+
+apply plugin: 'android'
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group:'com.octo.android.robospice', name:'robospice-retrofit', version:'1.4.6-SNAPSHOT'
+}
+
+android {
+    buildToolsVersion "17.0"
+    compileSdkVersion 16
+}

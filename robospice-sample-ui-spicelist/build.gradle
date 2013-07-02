@@ -1,0 +1,26 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.4.3'
+    }
+}
+
+apply plugin: 'android'
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group:'com.octo.android.robospice', name:'robospice-spring-android', version:'1.4.6-SNAPSHOT'
+    compile group:'com.octo.android.robospice', name:'robospice-ui-spicelist', version:'1.4.6-SNAPSHOT'
+    compile group:'org.codehaus.jackson', name:'jackson-mapper-asl', version:'1.9.11'
+}
+
+android {
+    buildToolsVersion "17.0"
+    compileSdkVersion 16
+}
