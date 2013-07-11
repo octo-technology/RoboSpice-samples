@@ -24,7 +24,7 @@
         </activity>
 
         <service
-            android:name=".SampleSpiceService"
+            android:name="com.octo.android.robospice.JacksonGoogleHttpClientSpiceService"
             android:exported="false" />
     </application>
 
