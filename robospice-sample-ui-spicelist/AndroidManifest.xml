@@ -29,7 +29,7 @@
             android:name="com.octo.android.robospice.JacksonSpringAndroidSpiceService"
             android:exported="false" />
         <service
-            android:name="com.octo.android.robospice.spicelist.BitmapSpiceService"
+            android:name="com.octo.android.robospice.spicelist.OkHttpBitmapSpiceService"
             android:exported="false" />
     </application>
 

@@ -16,7 +16,7 @@ import com.octo.android.robospice.sample.ui.spicelist.R;
 import com.octo.android.robospice.sample.ui.spicelist.adapter.GitHubUserListAdapter;
 import com.octo.android.robospice.sample.ui.spicelist.model.GitHubUser;
 import com.octo.android.robospice.sample.ui.spicelist.network.GitHubRequest;
-import com.octo.android.robospice.spicelist.BitmapSpiceManager;
+import com.octo.android.robospice.spicelist.OkHttpBitmapSpiceManager;
 
 public class TweetListActivity extends Activity {
 
@@ -26,7 +26,7 @@ public class TweetListActivity extends Activity {
     private GitHubUserListAdapter gitHubUserListAdapter;
 
     private SpiceManager spiceManagerJson = new SpiceManager(JacksonSpringAndroidSpiceService.class);
-    private BitmapSpiceManager spiceManagerBinary = new BitmapSpiceManager();
+    private OkHttpBitmapSpiceManager spiceManagerBinary = new OkHttpBitmapSpiceManager();
 
     // --------------------------------------------------------------------------------------------
     // ACTIVITY LIFECYCLE
