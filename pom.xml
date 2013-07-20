@@ -87,6 +87,7 @@
 		<module>robospice-sample-core-offline</module>
 		<module>robospice-sample-google-http-client</module>
                 <module>robospice-sample-image-caching</module>
+		<module>robospice-sample-okhttpclient</module>
 		<module>robospice-sample-ormlite</module>
 		<module>robospice-sample-ormlite-content-provider</module>
 		<module>robospice-sample-ui-spicelist</module>
