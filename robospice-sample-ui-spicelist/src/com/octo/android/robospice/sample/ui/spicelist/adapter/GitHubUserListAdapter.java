@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import com.octo.android.robospice.request.okhttp.simple.OkHttpBitmapRequest;
 import com.octo.android.robospice.sample.ui.spicelist.model.GitHubUser;
 import com.octo.android.robospice.sample.ui.spicelist.view.GitHubUserView;
-import com.octo.android.robospice.spicelist.OkHttpBitmapSpiceManager;
-import com.octo.android.robospice.spicelist.OkHttpSpiceArrayAdapter;
-import com.octo.android.robospice.spicelist.SpiceArrayAdapter;
 import com.octo.android.robospice.spicelist.SpiceListItemView;
+import com.octo.android.robospice.spicelist.okhttp.OkHttpBitmapSpiceManager;
+import com.octo.android.robospice.spicelist.okhttp.OkHttpSpiceArrayAdapter;
+import com.octo.android.robospice.spicelist.simple.SpiceArrayAdapter;
 
 /**
  * An example {@link SpiceArrayAdapter}.

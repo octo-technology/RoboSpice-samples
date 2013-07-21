@@ -16,7 +16,7 @@ import com.octo.android.robospice.sample.ui.spicelist.R;
 import com.octo.android.robospice.sample.ui.spicelist.adapter.GitHubUserListAdapter;
 import com.octo.android.robospice.sample.ui.spicelist.model.GitHubUser;
 import com.octo.android.robospice.sample.ui.spicelist.network.GitHubRequest;
-import com.octo.android.robospice.spicelist.OkHttpBitmapSpiceManager;
+import com.octo.android.robospice.spicelist.okhttp.OkHttpBitmapSpiceManager;
 
 public class TweetListActivity extends Activity {
 
