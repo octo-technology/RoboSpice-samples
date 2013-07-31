@@ -22,6 +22,7 @@ import android.app.Application;
 import com.octo.android.robospice.SpringAndroidSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPersister;
+import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.springandroid.json.jackson.JacksonObjectPersisterFactory;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
@@ -35,21 +36,21 @@ public class TweeterJsonSpringAndroidSpiceService extends SpringAndroidSpiceServ
     }
 
     @Override
-    public CacheManager createCacheManager( Application application ) {
+    public CacheManager createCacheManager(Application application) throws CacheCreationException {
         CacheManager cacheManager = new CacheManager();
 
         // init
-        InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister( application );
-        InFileInputStreamObjectPersister inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister( application );
-        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory( application );
+        InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister(application);
+        InFileInputStreamObjectPersister inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister(application);
+        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory(application);
 
-        inFileStringObjectPersister.setAsyncSaveEnabled( true );
-        inFileInputStreamObjectPersister.setAsyncSaveEnabled( true );
-        inJSonFileObjectPersisterFactory.setAsyncSaveEnabled( true );
+        inFileStringObjectPersister.setAsyncSaveEnabled(true);
+        inFileInputStreamObjectPersister.setAsyncSaveEnabled(true);
+        inJSonFileObjectPersisterFactory.setAsyncSaveEnabled(true);
 
-        cacheManager.addPersister( inFileStringObjectPersister );
-        cacheManager.addPersister( inFileInputStreamObjectPersister );
-        cacheManager.addPersister( inJSonFileObjectPersisterFactory );
+        cacheManager.addPersister(inFileStringObjectPersister);
+        cacheManager.addPersister(inFileInputStreamObjectPersister);
+        cacheManager.addPersister(inJSonFileObjectPersisterFactory);
         return cacheManager;
     }
 
@@ -57,10 +58,10 @@ public class TweeterJsonSpringAndroidSpiceService extends SpringAndroidSpiceServ
     public RestTemplate createRestTemplate() {
         RestTemplate restTemplate = new RestTemplate() {
             @Override
-            protected ClientHttpRequest createRequest( URI url, HttpMethod method ) throws IOException {
-                ClientHttpRequest request = super.createRequest( url, method );
+            protected ClientHttpRequest createRequest(URI url, HttpMethod method) throws IOException {
+                ClientHttpRequest request = super.createRequest(url, method);
                 HttpHeaders headers = request.getHeaders();
-                headers.setAcceptEncoding( ContentCodingType.GZIP );
+                headers.setAcceptEncoding(ContentCodingType.GZIP);
                 return request;
             }
         };
@@ -68,30 +69,30 @@ public class TweeterJsonSpringAndroidSpiceService extends SpringAndroidSpiceServ
         // bug on http connection for Android < 2.2
         // http://android-developers.blogspot.fr/2011/09/androids-http-clients.html
         // but still a problem for upload with Spring-android on android 4.1
-        System.setProperty( "http.keepAlive", "false" );
+        System.setProperty("http.keepAlive", "false");
 
         // set timeout for requests
         ClientHttpRequestFactory factory = restTemplate.getRequestFactory();
-        if ( factory instanceof HttpComponentsClientHttpRequestFactory ) {
+        if (factory instanceof HttpComponentsClientHttpRequestFactory) {
             HttpComponentsClientHttpRequestFactory advancedFactory = (HttpComponentsClientHttpRequestFactory) factory;
-            advancedFactory.setConnectTimeout( WEBSERVICES_TIMEOUT );
-            advancedFactory.setReadTimeout( WEBSERVICES_TIMEOUT );
-        } else if ( factory instanceof SimpleClientHttpRequestFactory ) {
+            advancedFactory.setConnectTimeout(WEBSERVICES_TIMEOUT);
+            advancedFactory.setReadTimeout(WEBSERVICES_TIMEOUT);
+        } else if (factory instanceof SimpleClientHttpRequestFactory) {
             SimpleClientHttpRequestFactory advancedFactory = (SimpleClientHttpRequestFactory) factory;
-            advancedFactory.setConnectTimeout( WEBSERVICES_TIMEOUT );
-            advancedFactory.setReadTimeout( WEBSERVICES_TIMEOUT );
+            advancedFactory.setConnectTimeout(WEBSERVICES_TIMEOUT);
+            advancedFactory.setReadTimeout(WEBSERVICES_TIMEOUT);
         }
 
         // web services support json responses
         MappingJacksonHttpMessageConverter jsonConverter = new MappingJacksonHttpMessageConverter();
         FormHttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
         StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter();
-        final List< HttpMessageConverter< ? >> listHttpMessageConverters = restTemplate.getMessageConverters();
+        final List<HttpMessageConverter<?>> listHttpMessageConverters = restTemplate.getMessageConverters();
 
-        listHttpMessageConverters.add( jsonConverter );
-        listHttpMessageConverters.add( formHttpMessageConverter );
-        listHttpMessageConverters.add( stringHttpMessageConverter );
-        restTemplate.setMessageConverters( listHttpMessageConverters );
+        listHttpMessageConverters.add(jsonConverter);
+        listHttpMessageConverters.add(formHttpMessageConverter);
+        listHttpMessageConverters.add(stringHttpMessageConverter);
+        restTemplate.setMessageConverters(listHttpMessageConverters);
         return restTemplate;
     }
 }

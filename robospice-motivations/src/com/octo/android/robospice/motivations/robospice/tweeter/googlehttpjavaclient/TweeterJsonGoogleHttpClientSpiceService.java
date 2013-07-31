@@ -5,6 +5,7 @@ import android.app.Application;
 import com.octo.android.robospice.GoogleHttpClientSpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileInputStreamObjectPersister;
+import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.googlehttpclient.json.JacksonObjectPersisterFactory;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
@@ -16,21 +17,21 @@ public class TweeterJsonGoogleHttpClientSpiceService extends GoogleHttpClientSpi
     }
 
     @Override
-    public CacheManager createCacheManager( Application application ) {
+    public CacheManager createCacheManager(Application application) throws CacheCreationException {
         CacheManager cacheManager = new CacheManager();
 
         // init
-        InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister( application );
-        InFileInputStreamObjectPersister inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister( application );
-        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory( application );
+        InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister(application);
+        InFileInputStreamObjectPersister inFileInputStreamObjectPersister = new InFileInputStreamObjectPersister(application);
+        JacksonObjectPersisterFactory inJSonFileObjectPersisterFactory = new JacksonObjectPersisterFactory(application);
 
-        inFileStringObjectPersister.setAsyncSaveEnabled( true );
-        inFileInputStreamObjectPersister.setAsyncSaveEnabled( true );
-        inJSonFileObjectPersisterFactory.setAsyncSaveEnabled( true );
+        inFileStringObjectPersister.setAsyncSaveEnabled(true);
+        inFileInputStreamObjectPersister.setAsyncSaveEnabled(true);
+        inJSonFileObjectPersisterFactory.setAsyncSaveEnabled(true);
 
-        cacheManager.addPersister( inFileStringObjectPersister );
-        cacheManager.addPersister( inFileInputStreamObjectPersister );
-        cacheManager.addPersister( inJSonFileObjectPersisterFactory );
+        cacheManager.addPersister(inFileStringObjectPersister);
+        cacheManager.addPersister(inFileInputStreamObjectPersister);
+        cacheManager.addPersister(inJSonFileObjectPersisterFactory);
         return cacheManager;
     }
 
