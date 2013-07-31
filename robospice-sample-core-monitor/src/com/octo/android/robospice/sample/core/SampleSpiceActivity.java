@@ -47,7 +47,7 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intentMonitor = SpiceServiceListenerNotificationService.createIntent(this, SampleMonitorService.class,
-                SampleSpiceService.class, 0, false);
+                SampleSpiceService.class, 200, true);
         startService(intentMonitor);
 
         requestWindowFeature(Window.FEATURE_PROGRESS);
@@ -76,6 +76,9 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
 
     @Override
     protected void onStop() {
+        Intent intentMonitor = SpiceServiceListenerNotificationService.createIntent(this, SampleMonitorService.class,
+                SampleSpiceService.class, 200, true);
+        stopService(intentMonitor);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) mImageView.getDrawable();
         if (bitmapDrawable != null) {
             bitmapDrawable.getBitmap().recycle();
