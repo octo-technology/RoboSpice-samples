@@ -56,18 +56,6 @@ public class SampleSpiceService extends SpiceService {
         Log.v("SampleSpiceService","Stopping service");
     }
 
-    public Notification createDefaultNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(0);
-        builder.setTicker(null);
-        builder.setWhen(System.currentTimeMillis());
-        final Notification note = builder.getNotification();
-        if( android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ) {
-            note.priority = Notification.PRIORITY_MIN;
-        }
-        return note;
-    }
-    
     @Override
     public IBinder onBind(Intent intent) {
         Log.v("SampleSpiceService","Bound service");
