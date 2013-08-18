@@ -1,11 +1,8 @@
 package com.octo.android.robospice.sample.core;
 
 import android.app.Application;
-import android.app.Notification;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.octo.android.robospice.SpiceService;
