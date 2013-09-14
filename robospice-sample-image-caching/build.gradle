@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.4.3'
+        classpath 'com.android.tools.build:gradle:0.5.+'
     }
 }
 
@@ -24,6 +24,6 @@ dependencies {
 }
 
 android {
-    buildToolsVersion "17.0"
+    buildToolsVersion "18.0.1"
     compileSdkVersion 16
 }
