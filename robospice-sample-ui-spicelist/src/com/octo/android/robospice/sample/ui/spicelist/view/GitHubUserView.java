@@ -13,7 +13,7 @@ import com.octo.android.robospice.spicelist.SpiceListItemView;
 public class GitHubUserView extends RelativeLayout implements SpiceListItemView<GitHubUser> {
 
     private TextView userNameTextView;
-    private TextView tweetContentTextView;
+    private TextView githubContentTextView;
     private ImageView thumbImageView;
     private GitHubUser gitHubUser;
 
@@ -23,9 +23,9 @@ public class GitHubUserView extends RelativeLayout implements SpiceListItemView<
     }
 
     private void inflateView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.view_cell_tweet, this);
+        LayoutInflater.from(context).inflate(R.layout.view_cell_github, this);
         this.userNameTextView = (TextView) this.findViewById(R.id.user_name_textview);
-        this.tweetContentTextView = (TextView) this.findViewById(R.id.tweet_content_textview);
+        this.githubContentTextView = (TextView) this.findViewById(R.id.github_content_textview);
         this.thumbImageView = (ImageView) this.findViewById(R.id.octo_thumbnail_imageview);
     }
 
@@ -33,7 +33,7 @@ public class GitHubUserView extends RelativeLayout implements SpiceListItemView<
     public void update(GitHubUser gitHubUser) {
         this.gitHubUser = gitHubUser;
         userNameTextView.setText(gitHubUser.getName());
-        tweetContentTextView.setText(String.valueOf(gitHubUser.getScore()));
+        githubContentTextView.setText(String.valueOf(gitHubUser.getScore()));
     }
 
     @Override

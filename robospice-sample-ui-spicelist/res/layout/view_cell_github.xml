@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true" />
 
     <TextView
-        android:id="@+id/tweet_content_textview"
+        android:id="@+id/github_content_textview"
         style="@android:style/TextAppearance.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

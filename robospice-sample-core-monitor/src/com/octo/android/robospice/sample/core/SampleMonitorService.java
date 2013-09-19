@@ -92,6 +92,14 @@ public class SampleMonitorService extends SpiceServiceListenerNotificationServic
     }
 
     @Override
+    public SpiceNotification onCreateNotificationForRequestAggregated(CachedSpiceRequest<?> cachedSpiceRequest, RequestProcessingContext requestProcessingContext) {
+        int hashCode = cachedSpiceRequest.getRequestCacheKey().hashCode();
+        String message = String.format(Locale.US, "Request %d aggregated", hashCode);
+        Ln.d(message);
+        return updateCustomSpiceNotification(hashCode, cachedSpiceRequest, message);
+    }
+
+    @Override
     public SpiceNotification onCreateNotificationForRequestNotFound(CachedSpiceRequest<?> cachedSpiceRequest, RequestProcessingContext requestProcessingContext) {
         int hashCode = cachedSpiceRequest.getRequestCacheKey().hashCode();
         String message = String.format(Locale.US, "Request %d notfound", hashCode);
@@ -100,7 +108,7 @@ public class SampleMonitorService extends SpiceServiceListenerNotificationServic
     }
 
     @Override
-    public SpiceNotification onCreateNotificationForRequestProcessed(CachedSpiceRequest<?> cachedSpiceRequest) {
+    public SpiceNotification onCreateNotificationForRequestProcessed(CachedSpiceRequest<?> cachedSpiceRequest, RequestProcessingContext requestProcessingContext) {
         int hashCode = cachedSpiceRequest.getRequestCacheKey().hashCode();
         String message = String.format(Locale.US, "Request %d processed", hashCode);
         Ln.d(message);
