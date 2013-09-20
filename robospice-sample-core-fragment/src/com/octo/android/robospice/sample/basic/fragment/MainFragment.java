@@ -1,6 +1,8 @@
 package com.octo.android.robospice.sample.basic.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -89,14 +91,18 @@ public class MainFragment extends Fragment {
         hideKeyboard();
     }
 
+    @TargetApi(3)
     private void hideKeyboard() {
+        if( Build.VERSION.SDK_INT < 3 ) {
+            return;
+        }
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(wordField.getWindowToken(), 0);
 
         LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.container);
         linearLayout.requestFocus();
     }
-
+    
     private final class ReverseStringRequestListener implements RequestListener<String> {
         @Override
         public void onRequestFailure(SpiceException spiceException) {
