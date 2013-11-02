@@ -13,8 +13,8 @@
 
 	<properties>
 		<android.version>4.1.1.4</android.version>
-		<robospice.version>1.4.7-SNAPSHOT</robospice.version>
-		<android-maven-plugin.version>3.6.0</android-maven-plugin.version>
+		<robospice.version>1.4.9</robospice.version>
+		<android-maven-plugin.version>3.7.0</android-maven-plugin.version>
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<maven-dependency-plugin.version>2.6</maven-dependency-plugin.version>
@@ -31,6 +31,11 @@
 			<groupId>com.octo.android.robospice</groupId>
 			<artifactId>robospice</artifactId>
 			<version>${robospice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
+			<version>r7</version>
 		</dependency>
 	</dependencies>
 
