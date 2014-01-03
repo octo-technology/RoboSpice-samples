@@ -14,7 +14,7 @@ public class GitHubRequest extends SpringAndroidSpiceRequest<GitHubUser.List> {
 
     @Override
     public GitHubUser.List loadDataFromNetwork() throws Exception {
-        String url = "https://api.github.com/legacy/user/search/:" + keyword;
+        String url = "https://api.github.com/legacy/user/search/" + keyword;
         return getRestTemplate().getForObject(url, GitHubUser.List.class);
     }
 
