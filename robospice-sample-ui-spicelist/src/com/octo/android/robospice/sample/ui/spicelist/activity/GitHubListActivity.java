@@ -1,7 +1,9 @@
 package com.octo.android.robospice.sample.ui.spicelist.activity;
 
+import roboguice.util.temp.Ln;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
@@ -33,6 +35,7 @@ public class GitHubListActivity extends Activity {
     // --------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Ln.getConfig().setLoggingLevel(Log.ERROR);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setProgressBarIndeterminateVisibility(false);
