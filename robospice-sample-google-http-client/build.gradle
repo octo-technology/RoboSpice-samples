@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+    }
+}
+
+apply plugin: 'android'
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group:'com.octo.android.robospice', name:'robospice-google-http-client', version:'1.4.+'
+    compile ('com.google.http-client:google-http-client-jackson:1.15.0-rc'){
+        exclude group: 'xpp3', module: 'xpp3'
+    }
+    
+}
+
+android {
+    buildToolsVersion "20.0.0"
+    compileSdkVersion 16
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+}
