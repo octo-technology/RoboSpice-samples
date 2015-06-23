@@ -37,7 +37,7 @@ public class SampleSpiceActivity extends BaseSampleSpiceActivity {
 
         mTextView = (TextView) findViewById(R.id.textview_lorem_ipsum);
 
-        githubRequest = new SampleRetrofitSpiceRequest("octo-online", "robospice");
+        githubRequest = new SampleRetrofitSpiceRequest("stephanenicolas", "robospice");
     }
 
     @Override
