@@ -1,13 +1,18 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion "22.0.1"
+    compileSdkVersion 22
+}
+
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:1.+'
     }
 }
-
-apply plugin: 'android'
 
 repositories{
     mavenLocal()
@@ -15,10 +20,5 @@ repositories{
 }
 
 dependencies {
-    compile group:'com.octo.android.robospice', name:'robospice-retrofit', version:'1.4.6-SNAPSHOT'
-}
-
-android {
-    buildToolsVersion "18.0.1"
-    compileSdkVersion 16
+    compile 'com.octo.android.robospice:robospice-retrofit:1.4.+'
 }
